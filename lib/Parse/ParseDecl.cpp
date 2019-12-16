@@ -3534,6 +3534,7 @@ Parser::parseDecl(ParseDeclOptions Flags,
     DeclResult = parseDeclProtocol(Flags, Attributes);
     break;
   case tok::kw_func:
+    //std::cout << "you got me, I parse a decl of func here!!!" << std::endl;
     parseFunc(/*HasFuncKeyword=*/true);
     break;
   case tok::kw_subscript: {
@@ -5993,6 +5994,12 @@ ParserResult<FuncDecl> Parser::parseDeclFunc(SourceLoc StaticLoc,
   bool rethrows;
   Status |= parseFunctionSignature(SimpleName, FullName, BodyParams,
                                    DefaultArgs, throwsLoc, rethrows, FuncRetTy);
+  if(BodyParams->size() > 3){
+	diagnose(BodyParams->getStartLoc(), diag::no_more_than_three_paras);
+	//std::cout << "More than 3 parameters in a function parameter list" << std::endl;
+  }
+
+
   if (Status.hasCodeCompletion() && !CodeCompletion) {
     // Trigger delayed parsing, no need to continue.
     return Status;

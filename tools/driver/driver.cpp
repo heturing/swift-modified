@@ -47,6 +47,8 @@
 #include <memory>
 #include <stdlib.h>
 
+#include <iostream>
+
 #if defined(_WIN32)
 #include <windows.h>
 #endif
@@ -180,6 +182,7 @@ static int run_driver(StringRef ExecName,
 }
 
 int main(int argc_, const char **argv_) {
+//	std::cout << "now you can change whatever you want" << std::endl;
 #if defined(_WIN32)
   LPWSTR *wargv_ = CommandLineToArgvW(GetCommandLineW(), &argc_);
   std::vector<std::string> utf8Args;
